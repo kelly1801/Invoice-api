@@ -1,26 +1,35 @@
-import  Invoice  from "../models/invoice.model.js";
+import Invoice from "../models/invoice.model.js";
+import { generateId } from "../utils/assign-id.js";
+export const getAllInvoices = async (req, res) => {
+  const { limit = 5, from = 0 } = req.query;
 
-export const getAllInvoices = async(req, res) => {
+  const [total, invoices] = await Promise.all([
+    Invoice.countDocuments(),
+    Invoice.find().skip(Number(from)).limit(Number(limit)),
+  ]);
 
-    const { limit = 5, from = 0 } = req.query;
-  
-    const [total, invoices] = await Promise.all([
-        Invoice.countDocuments(),
-        Invoice.find().skip(Number(from)).limit(Number(limit)),
-      ]);
-    
-      res.json({
-        total,
-        invoices,
-      });
-}
+  res.json({
+    total,
+    invoices,
+  });
+};
+
+export const getSingleInvoice = async (req, res) => {
+  const { ID } = req.params;
+  const invoice = await Invoice.find({ ID });
+
+  res.json({
+    invoice,
+  });
+};
 export const invoicePost = async (req, res) => {
   // extract the invoice data
 
-  const body = req.body;
+  const { body } = req;
+
   // save it in the db
   const invoice = new Invoice(body);
-
+  invoice.ID = generateId();
   await invoice.save();
 
   // do the response
@@ -29,5 +38,3 @@ export const invoicePost = async (req, res) => {
     invoice,
   });
 };
-
-

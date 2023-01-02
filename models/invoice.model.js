@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const senderAddressSchema = Schema({
+const SenderAddressSchema = Schema({
   street: {
     type: String,
   },
@@ -14,7 +14,7 @@ const senderAddressSchema = Schema({
     type: String,
   },
 });
-const clientAddressSchema = Schema({
+const ClientAddressSchema = Schema({
   clientStreet: {
     type: Object,
   },
@@ -49,7 +49,7 @@ const ItemsSchema = Schema({
 const InvoiceSchema = Schema({
   ID: {
     type: String,
-    required: [true, "ID is mandatory"],
+    unique: true,
   },
   createdAt: {
     type: Date,
@@ -72,16 +72,18 @@ const InvoiceSchema = Schema({
     enum: ["draft", "pending", "paid"],
   },
 
-  senderAddress: senderAddressSchema,
-  clientAddress: clientAddressSchema,
+  senderAddress: SenderAddressSchema,
+  clientAddress: ClientAddressSchema,
   items: [ItemsSchema],
 
   Total: {
     type: Number,
   },
 });
+
+  
 InvoiceSchema.methods.toJSON = function () {
-  const { __v, _id , ...invoice} = this.toObject();
+  const { __v, _id, ...invoice } = this.toObject();
   return invoice;
 };
 
