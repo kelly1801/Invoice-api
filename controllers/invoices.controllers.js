@@ -38,3 +38,24 @@ export const invoicePost = async (req, res) => {
     invoice,
   });
 };
+
+export const updateInvoice = async (req, res) => {
+  const { ID } = req.params;
+  const { body } = req;
+
+  const invoice = await Invoice.findOneAndUpdate({ ID }, body);
+
+  res.json({
+    invoice,
+  });
+};
+
+export const deleteInvoice = async (req, res) => {
+  const { ID } = req.params;
+  const invoice = await Invoice.findOneAndRemove({ ID });
+
+  res.json({
+    msg: "succesful delete",
+    invoice,
+  });
+};
