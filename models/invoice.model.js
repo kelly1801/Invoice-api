@@ -69,7 +69,7 @@ const InvoiceSchema = Schema({
   },
   status: {
     type: String,
-    enum: ["Draft", "Pending", "Paid"],
+    enum: ["draft", "pending", "paid"],
   },
 
   senderAddress: senderAddressSchema,
@@ -80,5 +80,9 @@ const InvoiceSchema = Schema({
     type: Number,
   },
 });
+InvoiceSchema.methods.toJSON = function () {
+  const { __v, _id , ...invoice} = this.toObject();
+  return invoice;
+};
 
-export const Invoice = model("Invoice", InvoiceSchema);
+export default model("Invoice", InvoiceSchema);
