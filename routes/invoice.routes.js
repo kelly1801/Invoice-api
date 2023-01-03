@@ -16,24 +16,16 @@ import {
 export const router = Router();
 
 router.get("/", getAllInvoices);
-router.get(
-  "/:ID",
-  [isValidId, check("ID").notEmpty(), validateFields],
-  getSingleInvoice
-);
-router.get(
-  "/filter/:stats",
- 
-  getInvoicesByStatus
-);
+router.get("/:ID", [check("ID").notEmpty(), validateFields], getSingleInvoice);
+router.get("/filter/:stats", getInvoicesByStatus);
 router.post("/", invoicePost);
 router.put(
   "/:ID",
-  [isValidId, check("ID").notEmpty(), validateFields],
+  [check("ID").notEmpty(), validateFields],
   updateInvoice
 );
 router.delete(
   "/:ID",
-  [isValidId, check("ID").notEmpty(), validateFields],
+  [check("ID").notEmpty(), validateFields],
   deleteInvoice
 );
