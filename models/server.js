@@ -5,7 +5,7 @@ import { router } from "../routes/invoice.routes.js";
 export default class server {
   constructor() {
     this.app = express();
-    this.port = process.env.port;
+    this.port = process.env.port || 8081;
     this.paths = {
       invoices: "/api/invoices",
     };
