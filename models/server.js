@@ -29,7 +29,7 @@ export default class server {
     this.app.use(this.paths.invoices, router);
   }
   listenPort() {
-    this.app.listen(this.port, () => {
+    this.app.listen(`0.0.0.0:${PORT}`, () => {
       console.log(`server running on port: ${this.port}`);
     });
   }
