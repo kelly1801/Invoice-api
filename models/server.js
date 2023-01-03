@@ -5,7 +5,7 @@ import { router } from "../routes/invoice.routes.js";
 export default class server {
   constructor() {
     this.app = express();
-    this.port = 8081;
+    this.port = process.env.PORT || 8081;
     this.paths = {
       invoices: "/api/invoices",
     };
@@ -29,7 +29,7 @@ export default class server {
     this.app.use(this.paths.invoices, router);
   }
   listenPort() {
-    this.app.listen(`0.0.0.0:${PORT}`, () => {
+    this.app.listen(process.env.PORT, () => {
       console.log(`server running on port: ${this.port}`);
     });
   }
