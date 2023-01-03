@@ -6,8 +6,13 @@ import {
   getSingleInvoice,
   updateInvoice,
   deleteInvoice,
+  getInvoicesByStatus,
 } from "../controllers/invoices.controllers.js";
-import { isValidId, validateFields } from "../middlewares/middlewares.js";
+import {
+  isValidId,
+  validateFields,
+  isValidStatus,
+} from "../middlewares/middlewares.js";
 export const router = Router();
 
 router.get("/", getAllInvoices);
@@ -15,6 +20,15 @@ router.get(
   "/:ID",
   [isValidId, check("ID").notEmpty(), validateFields],
   getSingleInvoice
+);
+router.get(
+  "/filter/:stats",
+  // [
+  //   check("stats").notEmpty(),
+  //   check("stats").custom(isValidStatus),
+  //   validateFields,
+  // ],
+  getInvoicesByStatus
 );
 router.post("/", invoicePost);
 router.put(

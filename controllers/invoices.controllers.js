@@ -1,5 +1,6 @@
 import Invoice from "../models/invoice.model.js";
 import { generateId } from "../utils/assign-id.js";
+
 export const getAllInvoices = async (req, res) => {
   const { limit = 5, from = 0 } = req.query;
 
@@ -13,7 +14,16 @@ export const getAllInvoices = async (req, res) => {
     invoices,
   });
 };
+export const getInvoicesByStatus = async (req, res) => {
+  const { stats } = req.params;
+  const query = { status: stats };
+  const [total, invoices] = await Promise.all([
+    Invoice.countDocuments(query),
+    Invoice.find(query),
+  ]);
 
+  res.json({ total, invoices });
+};
 export const getSingleInvoice = async (req, res) => {
   const { ID } = req.params;
   const invoice = await Invoice.find({ ID });
