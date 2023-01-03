@@ -23,11 +23,7 @@ router.get(
 );
 router.get(
   "/filter/:stats",
-  // [
-  //   check("stats").notEmpty(),
-  //   check("stats").custom(isValidStatus),
-  //   validateFields,
-  // ],
+ 
   getInvoicesByStatus
 );
 router.post("/", invoicePost);
