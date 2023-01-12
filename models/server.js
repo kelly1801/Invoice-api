@@ -9,16 +9,8 @@ export default class server {
     this.paths = {
       invoices: "/api/invoices",
     };
-    this.whitelist = ['http://localhost:5173', '*']
-    this.corsOptions = {
-      origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-}
+ 
+
 
     this.connectDB();
     this.middlewares();
@@ -26,7 +18,9 @@ export default class server {
   }
 
   middlewares() {
-    this.app.use(cors(this.corsOptions));
+    this.app.use(cors(app.use(
+      cors({origin: ['http://localhost:5173', 'http://127.0.0.1:5173']})
+    );s));
     this.app.use(express.static("public"));
     this.app.use(express.json());
   }
