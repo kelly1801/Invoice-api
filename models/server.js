@@ -16,9 +16,8 @@ export default class server {
   }
 
   middlewares() {
-    this.app.use(cors(this.app.use(
-      cors({origin: ['http://localhost:5173', 'http://127.0.0.1:5173']})
-    )));
+    this.app.use(cors({origin: ['http://localhost:5173', 'http://127.0.0.1:5173']})
+    );
     this.app.use(express.static("public"));
     this.app.use(express.json());
   }
