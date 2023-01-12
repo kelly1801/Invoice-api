@@ -9,8 +9,6 @@ export default class server {
     this.paths = {
       invoices: "/api/invoices",
     };
- 
-
 
     this.connectDB();
     this.middlewares();
@@ -18,7 +16,7 @@ export default class server {
   }
 
   middlewares() {
-    this.app.use(cors(app.use(
+    this.app.use(cors(this.app.use(
       cors({origin: ['http://localhost:5173', 'http://127.0.0.1:5173']})
     )));
     this.app.use(express.static("public"));
